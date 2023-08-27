@@ -22,3 +22,9 @@ go.work
 
 # Tailwind CLI Tool
 tailwindcss
+
+# Prepared SQL statements for testing
+SQL.txt
+
+# SQLite DB
+*.db
