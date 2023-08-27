@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 )
@@ -18,7 +19,8 @@ func main() {
 }
 
 func DefaultHandler(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("DefaultHandler")
+		tmpl := template.Must(template.ParseFiles("./public/index.html"))
+		tmpl.Execute(w, nil)
 	}
 
 func AddItemHandler(w http.ResponseWriter, r *http.Request) {
