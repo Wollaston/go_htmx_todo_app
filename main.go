@@ -15,6 +15,7 @@ type Todo struct {
 func main() {
 	http.HandleFunc("/", DefaultHandler)
 	http.HandleFunc("/static/output.css", ServeStyleSheet)
+	http.HandleFunc("/clicked", ClickHandler)
 
 	log.Fatal(http.ListenAndServe(":8000", nil))
 }
@@ -30,4 +31,8 @@ func AddItemHandler(w http.ResponseWriter, r *http.Request) {
 
 func ServeStyleSheet(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "static/output.css")
+}
+
+func ClickHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("ClickHandler")
 }
