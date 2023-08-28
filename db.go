@@ -66,3 +66,16 @@ func Close(db *sql.DB) {
 	db.Close()
 	fmt.Println("DB Connection Closed.")
 }
+
+func DeleteOne(uid string, db *sql.DB) {
+	stmt, err := db.Prepare("DELETE FROM todos WHERE uid=?")
+	if err != nil {
+		log.Fatal(err)
+	}
+	res, err := stmt.Exec(uid)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("DB Delete: ")
+	fmt.Println(res)
+}

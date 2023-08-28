@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strings"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -18,6 +19,7 @@ func main() {
 	http.HandleFunc("/", DefaultHandler)
 	http.HandleFunc("/static/output.css", ServeStyleSheet)
 	http.HandleFunc("/create-todo", ToDoHandler)
+	http.HandleFunc("/delete-todo/", DeleteToDoHandler)
 
 	log.Fatal(http.ListenAndServe(":8000", nil))
 }
@@ -46,5 +48,13 @@ func ToDoHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./src/public/templates/todo.html"))
 	tmpl.ExecuteTemplate(w, "todo", records)
 
+	Close(db)
+}
+
+func DeleteToDoHandler (w http.ResponseWriter, r *http.Request) {
+	params := strings.Split(r.URL.Path,"/")
+	uid := params[2]
+	db := Connect()
+	DeleteOne(uid, db)
 	Close(db)
 }
