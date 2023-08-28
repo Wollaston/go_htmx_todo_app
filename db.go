@@ -9,6 +9,13 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+type Record struct {
+	Title  string
+	Detail string
+	Uid int
+	Created time.Time
+}
+
 func Connect() *sql.DB {
 	db, err := sql.Open("sqlite3", "./todos.db")
 	if err != nil {
@@ -20,12 +27,12 @@ func Connect() *sql.DB {
 	return db
 }
 
-func Read(db *sql.DB) []Todo {
+func Read(db *sql.DB) []Record {
 	rows, err := db.Query("SELECT * FROM todos")
 	if err != nil {
 		log.Fatal(err)
 	}
-	var records []Todo
+	var records []Record
 
 	for rows.Next() {
 		var uid int
@@ -36,7 +43,7 @@ func Read(db *sql.DB) []Todo {
 		if err != nil {
 			log.Fatal(err)
 		}
-		record := Todo{Title: title, Detail: detail}
+		record := Record{Title: title, Detail: detail, Uid: uid, Created: created}
 		records = append(records, record)
 	}
 	return records

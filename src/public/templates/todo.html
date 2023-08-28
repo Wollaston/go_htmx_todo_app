@@ -1,8 +1,15 @@
 {{define "todo"}}
   {{range . }}
-    <div class="p-2 m-2 shadow-md bg-sky-500 w-full grid-flow-row">
-      <h4 class="text-lg"><span class="font-bold">Title: </span>{{ .Title }}</h4> 
-      <p class="text-base break-words overflow-hidden"><span class="font-bold">Detail: </span>{{ .Detail }}</p>
+    <div id="{{ .Uid }}" class="p-2 m-2 shadow-md bg-sky-500 w-full grid-flow-row">
+      <div class="grid grid-cols-[60px_1fr_60px]">
+        <h4 class="text-lg font-bold">Title: </h4> 
+        <p>{{ .Title }}</p>
+        <button class="text-lg font-bold">Delete</button> 
+      </div>
+      <div class="grid grid-cols-[60px_1fr]">
+        <h5 class="font-bold">Detail: </h5>
+        <p class="text-base break-words overflow-hidden">{{ .Detail }}</p>
+      </div>
     </div>
   {{end}}
 {{end}}

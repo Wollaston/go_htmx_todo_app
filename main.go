@@ -1,10 +1,12 @@
 package main
 
 import (
-	_ "github.com/mattn/go-sqlite3"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 type Todo struct {
@@ -39,6 +41,7 @@ func ToDoHandler(w http.ResponseWriter, r *http.Request) {
 	Create(db, r.FormValue("title"), r.FormValue("detail"))
 
 	records := Read(db)
+	fmt.Println(records)
 
 	tmpl := template.Must(template.ParseFiles("./src/public/templates/todo.html"))
 	tmpl.ExecuteTemplate(w, "todo", records)

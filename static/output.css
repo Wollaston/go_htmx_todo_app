@@ -579,6 +579,14 @@ video {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
+.grid-cols-\[60px_1fr\] {
+  grid-template-columns: 60px 1fr;
+}
+
+.grid-cols-\[60px_1fr_60px\] {
+  grid-template-columns: 60px 1fr 60px;
+}
+
 .grid-cols-\[minmax\(0px\2c 200px\)_minmax\(200px\2c _1fr\)_minmax\(0px\2c _200px\)\] {
   grid-template-columns: minmax(0px,200px) minmax(200px, 1fr) minmax(0px, 200px);
 }
