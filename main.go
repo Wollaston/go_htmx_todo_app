@@ -21,10 +21,11 @@ func main() {
 }
 
 func DefaultHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("./src/public/index.html"))
+	tmpl := template.Must(template.ParseFiles("./src/public/templates/index.html", "./src/public/templates/todo.html"))
 	db := Connect()
 	records := Read(db)
 	tmpl.Execute(w, records)
+	Close(db)
 }
 
 func ServeStyleSheet(w http.ResponseWriter, r *http.Request) {
@@ -37,8 +38,10 @@ func ToDoHandler(w http.ResponseWriter, r *http.Request) {
 	db := Connect()
 	Create(db, r.FormValue("title"), r.FormValue("detail"))
 
-	tmpl := template.Must(template.ParseFiles("./src/public/index.html"))
-	tmpl.ExecuteTemplate(w, "todo-list-element", Todo{Title: r.FormValue("title"), Detail: r.FormValue("detail")})
+	records := Read(db)
+
+	tmpl := template.Must(template.ParseFiles("./src/public/templates/index.html", "./src/public/templates/todo.html"))
+	tmpl.Execute(w, records)
 
 	Close(db)
 }

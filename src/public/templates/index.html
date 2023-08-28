@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/static/output.css" rel="stylesheet"  >
+  <script src="https://unpkg.com/htmx.org@1.9.5" integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO" crossorigin="anonymous"></script>
+  <title>To-Do List App</title>
+</head>
+<body>
+  <div class="min-h-screen w-screen">
+    <div class="w-full h-24 flex flex-col justify-center items-center bg-slate-200">
+      <h1 class="text-slate-600 drop-shadow-xl text-center text-2xl font-semibold">To-Do List App</h1>
+    </div>
+    <div class="w-full flex flex-col justify-center items-center">
+      <div class="w-full flex flex-col justify-center items-center bg-slate-100">
+        <h1 class="p-2 text-xl font-semibold"> New To-do!</h1>
+        <form action="/create-todo" method="post" class="flex flex-col justify-between">
+          <div id="title" class="flex flex-1 justify-between p-2">
+            <label for="to-do-title" class="font-semibold p-2">Title</label>
+            <input type="text" name="title" id="to-do-title" class="font-semibold p-2">
+          </div>
+          <div id="detail" class="flex flex-1 justify-between p-2">
+            <label for="to-do-detail" class="font-semibold p-2">Detail</label>
+            <input type="text" name="detail" id="to-do-detail" class="font-semibold p-2">
+          </div>
+          <button type="submit" class="font-semibold p-2">Submit</button>
+        </form>
+      </div>
+      <div id="todos" class="w-full flex flex-col justify-center items-center">
+        <h1>My To-Dos!</h1>
+        <ul id="todo-list">
+          {{ template "todo" .}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
