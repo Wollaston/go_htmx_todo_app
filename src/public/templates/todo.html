@@ -1,5 +1,8 @@
 {{define "todo"}}
   {{range . }}
-    <li>Title: {{ .Title }}; Detail: {{ .Detail }}</li>
+    <li class="p-2 m-2 shadow-md bg-sky-500">
+      <h4 class="text-lg"><span class="font-bold">Title:</span> {{ .Title }}</h4> 
+      <p class="text-base"><span class="font-bold">Detail:</span> {{ .Detail }}</p>
+    </li>
   {{end}}
 {{end}}
