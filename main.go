@@ -19,7 +19,6 @@ type Todo struct {
 func main() {
 	http.HandleFunc("/", DefaultHandler)
 	http.HandleFunc("/static/output.css", ServeStyleSheet)
-	http.HandleFunc("/clicked", ClickHandler)
 	http.HandleFunc("/create-todo", ToDoHandler)
 
 	log.Fatal(http.ListenAndServe(":8000", nil))
@@ -28,19 +27,12 @@ func main() {
 func DefaultHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./src/public/index.html"))
 	tmpl.Execute(w, nil)
+	CreateTodos(w, r)
 	Connect()
-}
-
-func AddItemHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("AddItemHandler")
 }
 
 func ServeStyleSheet(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "static/output.css")
-}
-
-func ClickHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("ClickHandler")
 }
 
 func ToDoHandler(w http.ResponseWriter, r *http.Request) {
@@ -52,7 +44,6 @@ func ToDoHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./src/public/index.html"))
 	tmpl.ExecuteTemplate(w, "todo-list-element", Todo{Title: r.FormValue("title"), Detail: r.FormValue("detail")})
 
-	Read(db)
 	Close(db)
 }
 
@@ -67,12 +58,13 @@ func Connect() *sql.DB {
 	return db
 }
 
-func Read(db *sql.DB) {
+func Read(db *sql.DB) []Todo {
 	rows, err := db.Query("SELECT * FROM todos")
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("DB Read: ")
+	var records []Todo
+
 	for rows.Next() {
 		var uid int
 		var title string
@@ -80,13 +72,12 @@ func Read(db *sql.DB) {
 		var created time.Time
 		err = rows.Scan(&uid, &title, &detail, &created)
 		if err != nil {
-		 log.Fatal(err)
+			log.Fatal(err)
 		}
-		fmt.Println(uid)
-		fmt.Println(title)
-		fmt.Println(detail)
-		fmt.Println(created)
-	 }
+		record := Todo{Title: title, Detail: detail}
+		records = append(records, record)
+	}
+	return records
 }
 
 func Create(db *sql.DB, title string, detail string) {
@@ -105,4 +96,17 @@ func Create(db *sql.DB, title string, detail string) {
 func Close(db *sql.DB) {
 	db.Close()
 	fmt.Println("DB Connection Closed.")
+}
+
+func CreateTodos(w http.ResponseWriter, r *http.Request) {
+	db := Connect()
+
+	records := Read(db)
+	tmpl := template.Must(template.ParseFiles("./src/public/index.html"))
+
+	for i := 0; i < len(records); i++ {
+		tmpl.ExecuteTemplate(w, "todo-list-element", Todo{Title: records[i].Title, Detail: records[i].Detail})
+	}
+
+	Close(db)
 }
