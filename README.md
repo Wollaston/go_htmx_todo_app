@@ -26,3 +26,11 @@ This project uses the standalone [TailwindCLI](https://tailwindcss.com/blog/stan
 ```shell
 ./tailwindcss -i ./static/input.css -o ./static/output.css
 ```
+
+## Next Steps
+- Improve error handling of Go code
+- Better organize html with Go Templates
+- Add ability to edit To Do items in-line
+- Add confirmation modal before deleting a record
+- Update code stlying
+- Add proper header and footer to base html page
