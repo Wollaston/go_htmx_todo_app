@@ -4,6 +4,7 @@ A simple to-do list web app using:
 - htmx
 - Tailwind CSS
 - SQLite
+
 It is barebones and minimally styled, as it was used as a project to explore the basics of different technologies. 
 ## Getting Starting
 There are a few steps required to get the project working.
