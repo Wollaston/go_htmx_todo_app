@@ -8,8 +8,22 @@
   <title>To-Do List App</title>
 </head>
 <body>
-  <div class="flex flex-col justify-center items-center bg-slate-100">
+  <div class="flex flex-col justify-center items-center bg-slate-200">
     <h1 class="text-slate-600 text-center text-2xl">To-Do List App</h1>
+  </div>
+  <div class="flex flex-col justify-center items-center bg-slate-100">
+    <h1>Add New To-do!</h1>
+    <form hx-post="/create-todo" hx-swap="none" class="flex flex-col justify-center items-center">
+      <div id="title" class="p-2">
+        <label for="to-do-title">Title</label>
+        <input type="text" name="title" id="to-do-title">
+      </div>
+      <div id="detail" class="p-2">
+        <label for="to-do-detail">Detail</label>
+        <input type="text" name="detail" id="to-do-detail">
+      </div>
+      <button type="submit" class="p-2">Submit</button>
+    </form>
   </div>
 </body>
 </html>
