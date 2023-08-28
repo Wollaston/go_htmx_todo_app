@@ -48,6 +48,10 @@ func ToDoHandler(w http.ResponseWriter, r *http.Request) {
 
 	db := Connect()
 	Create(db, r.FormValue("title"), r.FormValue("detail"))
+
+	tmpl := template.Must(template.ParseFiles("./src/public/index.html"))
+	tmpl.ExecuteTemplate(w, "todo-list-element", Todo{Title: r.FormValue("title"), Detail: r.FormValue("detail")})
+
 	Read(db)
 	Close(db)
 }
