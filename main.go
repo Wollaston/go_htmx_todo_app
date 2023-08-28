@@ -40,8 +40,8 @@ func ToDoHandler(w http.ResponseWriter, r *http.Request) {
 
 	records := Read(db)
 
-	tmpl := template.Must(template.ParseFiles("./src/public/templates/index.html", "./src/public/templates/todo.html"))
-	tmpl.Execute(w, records)
+	tmpl := template.Must(template.ParseFiles("./src/public/templates/todo.html"))
+	tmpl.ExecuteTemplate(w, "todo", records)
 
 	Close(db)
 }

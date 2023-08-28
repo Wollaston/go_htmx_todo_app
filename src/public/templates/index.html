@@ -15,7 +15,7 @@
     <div class="w-full flex flex-col justify-center items-center">
       <div class="w-full flex flex-col justify-center items-center bg-slate-100">
         <h1 class="p-2 text-xl font-semibold"> New To-Do!</h1>
-        <form action="/create-todo" method="post" class="flex flex-col justify-between">
+        <form hx-post="/create-todo" hx-target="#todo-list" hx-swap="innerHTML" class="flex flex-col justify-between">
           <div id="title" class="flex flex-1 justify-between p-2">
             <label for="to-do-title" class="font-semibold p-2">Title</label>
             <input type="text" name="title" id="to-do-title" class="font-semibold p-2">
