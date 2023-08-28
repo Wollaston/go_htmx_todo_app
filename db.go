@@ -10,9 +10,9 @@ import (
 )
 
 type Record struct {
-	Title  string
-	Detail string
-	Uid int
+	Title   string
+	Detail  string
+	Uid     int
 	Created time.Time
 }
 

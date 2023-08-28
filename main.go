@@ -51,8 +51,8 @@ func ToDoHandler(w http.ResponseWriter, r *http.Request) {
 	Close(db)
 }
 
-func DeleteToDoHandler (w http.ResponseWriter, r *http.Request) {
-	params := strings.Split(r.URL.Path,"/")
+func DeleteToDoHandler(w http.ResponseWriter, r *http.Request) {
+	params := strings.Split(r.URL.Path, "/")
 	uid := params[2]
 	db := Connect()
 	DeleteOne(uid, db)
