@@ -28,3 +28,4 @@ SQL.txt
 
 # SQLite DB
 *.db
+static/
